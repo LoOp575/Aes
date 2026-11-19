@@ -19,12 +19,13 @@ This stage does not perform port-range scans, application requests, credential/c
 - Explicit authorization for every configured target and port
 
 ## Local setup
+Run these commands from the repository root:
 ```bash
 python -m venv .venv
 # Linux/macOS
 source .venv/bin/activate
 # Windows PowerShell: .venv\\Scripts\\Activate.ps1
-pip install -r requirements.txt
+pip install -r cryptographic-network-forensics/requirements.txt
 cp cryptographic-network-forensics/.env.example .env
 ```
 
@@ -35,11 +36,6 @@ Linux/macOS:
 set -a
 . ./.env
 set +a
-uvicorn cryptographic-network-forensics.app.main:app --host 127.0.0.1 --port 8000
-```
-
-Because Python package names cannot contain hyphens, use the actual package directory name `cnfe`. The canonical launch command is:
-```bash
 uvicorn cnfe.main:app --app-dir cryptographic-network-forensics --host 127.0.0.1 --port 8000
 ```
 
@@ -54,7 +50,14 @@ uvicorn cnfe.main:app --app-dir cryptographic-network-forensics --host 127.0.0.1
 ```
 
 ## Tests
+Linux/macOS:
 ```bash
+PYTHONPATH=cryptographic-network-forensics pytest -q
+```
+
+Windows PowerShell:
+```powershell
+$env:PYTHONPATH = "cryptographic-network-forensics"
 pytest -q
 ```
 
